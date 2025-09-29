@@ -39,7 +39,7 @@ class GerenciadorBancoDeDados:
         Returns:
             dict: O documento do usuário, ou None se não for encontrado.
         """
-        if not self.banco:
+        if self.banco is None:
             print("Conexão com o banco não estabelecida.")
             return None
             
