@@ -95,7 +95,7 @@ def configurar_usuarios_iniciais(gerenciador_db):
 
 if __name__ == '__main__':
     # ATENÇÃO: Substitua pela sua string de conexão do MongoDB Atlas
-    STRING_DE_CONEXAO_MONGO = "mongodb+srv://brunocesarglm_db_user:bruno2006@mensageriasegura.fzzowy5.mongodb.net/?retryWrites=true&w=majority&appName=MensageriaSegura"
+    STRING_DE_CONEXAO_MONGO = "mongodb+srv://juliano:8779130@mensageriasegura.fzzowy5.mongodb.net/?retryWrites=true&w=majority&appName=MensageriaSegura"
 
     gerenciador_db = GerenciadorBancoDeDados(STRING_DE_CONEXAO_MONGO)
 
