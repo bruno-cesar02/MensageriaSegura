@@ -3,27 +3,36 @@ from usuario import Usuario
 from envioMensagens import Mensagem
 from recebeMensagens import receber_mensagens
 
-
 def main():
     """
     Função principal que inicia a aplicação.
     """
-    print("Bem-vindo ao sistema de Mensageria Segura!")
-    STRING_DE_CONEXAO_MONGO = "mongodb+srv://juliano:8779130@mensageriasegura.fzzowy5.mongodb.net/?retryWrites=true&w=majority&appName=MensageriaSegura"
-    gerenciador_db = GerenciadorBancoDeDados(STRING_DE_CONEXAO_MONGO)
+    # MELHORIA: Interface mais amigável
+    print("\n" + "="*60)
+    print("     BEM-VINDO AO SISTEMA DE MENSAGERIA SEGURA")
+    print("="*60 + "\n")
+    
+    # Cria APENAS UMA conexão que será reutilizada
+    gerenciador_db = GerenciadorBancoDeDados()
 
     if gerenciador_db.banco is None:
         print("Erro ao conectar ao banco.")
         return
     
+    # Login do usuário
     usuario = Usuario()
     if not usuario.autenticar(gerenciador_db):
         return
     
+    # Menu principal
     while True:
-        print("\n1- Enviar mensagem")
-        print("\n2- Ler Mensagem")
-        print("\n0- Sair")
+        print("\n" + "-"*60)
+        print("MENU PRINCIPAL")
+        print("-"*60)
+        print("1 - Enviar mensagem")
+        print("2 - Ler mensagens")
+        print("0 - Sair")
+        print("-"*60)
 
         opcao = input("Escolha uma opcao: ")
 
@@ -39,9 +48,7 @@ def main():
             case _:
                 print("Opcao invalida.")
 
-
-
-    print("\nFim do programa.")
+    print("Fim do programa.")
 
 
 if __name__ == '__main__':

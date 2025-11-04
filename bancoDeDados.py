@@ -1,29 +1,35 @@
 import pymongo
 import bcrypt
 from datetime import datetime
+from config import MONGO_CONNECTION_STRING, DATABASE_NAME
 
 class GerenciadorBancoDeDados:
-    """
-    Classe para gerenciar a conexão e as operações com o MongoDB.
-    """
-    def __init__(self, string_conexao, nome_banco="chat"):
+    
+    #Classe para gerenciar a conexão e as operações com o MongoDB.
+    #MELHORIAS: Conexão mais rápida e reutilização
+
+    def __init__(self):
         """
         Inicializa o gerenciador de banco de dados.
-
-        Args:
-            string_conexao (str): A string de conexão para o MongoDB.
-            nome_banco (str): O nome do banco de dados.
         """
         self.cliente = None
         self.banco = None
         
         try:
             print("Conectando ao MongoDB...")
-            self.cliente = pymongo.MongoClient(string_conexao)
-            # A linha abaixo força a conexão e verifica se o servidor está disponível
-            self.cliente.admin.command('ping') 
-            self.banco = self.cliente['chat']
+            
+            # MELHORIA: Configurações para conexão mais rápida e estável
+            self.cliente = pymongo.MongoClient(
+                MONGO_CONNECTION_STRING,
+                serverSelectionTimeoutMS=5000,  # Timeout de 5 segundos
+                maxPoolSize=10,                 # Reutiliza até 10 conexões
+            )
+            
+            # Testa a conexão
+            self.cliente.admin.command('ping')
+            self.banco = self.cliente[DATABASE_NAME]
             print("Conexão estabelecida com sucesso!")
+            
         except pymongo.errors.ConnectionFailure as e:
             print(f"Não foi possível conectar ao MongoDB: {e}")
         except Exception as e:
@@ -32,12 +38,6 @@ class GerenciadorBancoDeDados:
     def buscar_usuario(self, nome_usuario):
         """
         Busca um usuário pelo seu nome de usuário.
-        
-        Args:
-            nome_usuario (str): O nome de usuário a ser buscado.
-
-        Returns:
-            dict: O documento do usuário, ou None se não for encontrado.
         """
         if self.banco is None:
             print("Conexão com o banco não estabelecida.")
@@ -49,13 +49,6 @@ class GerenciadorBancoDeDados:
     def adicionar_usuario(self, nome_usuario, senha):
         """
         Adiciona um novo usuário ao banco de dados com senha hasheada.
-
-        Args:
-            nome_usuario (str): O nome de usuário.
-            senha (str): A senha em texto plano.
-
-        Returns:
-            bool: True se o usuário foi adicionado, False caso contrário.
         """
         if self.banco is None:
             print("Conexão com o banco não estabelecida.")
@@ -94,11 +87,8 @@ def configurar_usuarios_iniciais(gerenciador_db):
 
 
 if __name__ == '__main__':
-    # ATENÇÃO: Substitua pela sua string de conexão do MongoDB Atlas
-    STRING_DE_CONEXAO_MONGO = "mongodb+srv://juliano:8779130@mensageriasegura.fzzowy5.mongodb.net/?retryWrites=true&w=majority&appName=MensageriaSegura"
-
-    gerenciador_db = GerenciadorBancoDeDados(STRING_DE_CONEXAO_MONGO)
-
+    # AGORA A STRING VEM DO config.py - em um único lugar!
+    gerenciador_db = GerenciadorBancoDeDados()
    
     if gerenciador_db.banco is not None:
         configurar_usuarios_iniciais(gerenciador_db)
