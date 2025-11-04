@@ -20,7 +20,7 @@ Sistema de mensageria com criptografia ponta-a-ponta utilizando Python, MongoDB 
 
 ### 1. Clone o repositório
 ```bash
-git clone <seu-repositorio>
+git clone https://github.com/bruno-cesar02/MensageriaSegura.git
 cd MensageriaSegura
 ```
 
@@ -102,7 +102,6 @@ MensageriaSegura/
 
 ### Segurança
 - ✅ **Variáveis de Ambiente**: Credenciais fora do código
-- ✅ **getpass**: Senhas ocultas ao digitar
 - ✅ **Validações**: Username, senha e mensagem
 - ✅ **Normalização**: Case-insensitive usernames
 
@@ -160,16 +159,10 @@ python recebeMensagens.py
 
 1. **Chave de Criptografia**: É de responsabilidade do usuário compartilhar a chave de forma segura
 2. **Backup**: Mensagens não decifradas permanecem como "não lidas"
-3. **Salt Estático**: Para produção, implemente salt único por mensagem
+3. **Salt Estático**: salt único por mensagem
 4. **MongoDB Atlas**: Configure whitelist de IPs se necessário
 
-## 🤝 Contribuindo
 
-1. Fork o projeto
-2. Crie uma branch (`git checkout -b feature/nova-funcionalidade`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
-4. Push para a branch (`git push origin feature/nova-funcionalidade`)
-5. Abra um Pull Request
 
 ## 📄 Licença
 
@@ -177,7 +170,7 @@ Este projeto é educacional e foi desenvolvido para fins acadêmicos.
 
 ## 👨‍💻 Autor
 
-Projeto desenvolvido para a disciplina de Segurança da Informação.
+Projeto desenvolvido para a disciplina de Banco de Dados 2.
 
 ---
 
