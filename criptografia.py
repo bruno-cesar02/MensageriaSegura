@@ -20,7 +20,7 @@ class Criptografia:
         Returns:
             bytes: A chave pronta para ser usada na criptografia.
         """
-        salt = b'salt_estatico_para_o_projeto' # Em um projeto real, o salt seria único e armazenado.
+        salt = b'salt_estatico_para_o_projeto' 
         kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
             length=32,
